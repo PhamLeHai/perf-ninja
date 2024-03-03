@@ -3,8 +3,31 @@
 #include <cstring>
 #include <omp.h>
 #include <vector>
+
+#ifdef SOLUTION
 #include <array>
 
+std::size_t solution(const std::vector<uint32_t> &data, int thread_count) {
+  std::size_t result = 0;
+#pragma omp parallel num_threads(thread_count) default(none)                   \
+    shared(data, result)
+  {
+#pragma omp for reduction(+: result)
+    for (int i = 0; i < data.size(); i++) {
+      // Perform computation on each input
+      auto item = data[i];
+      item += 1000;
+      item ^= 0xADEDAE;
+      item |= (item >> 24);
+
+      // Write result to accumulator
+      result += item % 13;
+    }
+  }
+  return result;
+}
+
+#else
 std::size_t solution(const std::vector<uint32_t> &data, int thread_count) {
   // Using std::atomic counters to disallow compiler to promote `target`
   // memory location into a register. This way we ensure that the store
@@ -42,3 +65,4 @@ std::size_t solution(const std::vector<uint32_t> &data, int thread_count) {
   }
   return result;
 }
+#endif
