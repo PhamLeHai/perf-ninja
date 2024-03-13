@@ -1,3 +1,4 @@
+#include <array>
 #include <vector>
 #include <iostream>
 
@@ -42,7 +43,7 @@ public:
         //printCurrentGrid();
         int M = current.size();
         int N = current[0].size();
-        
+
         // Loop through every cell
         for(int i = 0; i < M; i++) {
             for(int j = 0; j < N; j++) {
@@ -58,6 +59,11 @@ public:
                         aliveNeighbours += current[i + p][j + q];
                     }
                 }
+#ifdef SOLUTION
+                static std::array<int, 9> vals = {0, 0, 0, 1, 0, 0, 0, 0, 0};
+                vals[2] = current[i][j];
+                future[i][j] = vals[aliveNeighbours - current[i][j]];
+#else
                 // The cell needs to be subtracted from
                 // its neighbours as it was counted before
                 aliveNeighbours -= current[i][j];
@@ -81,6 +87,7 @@ public:
                     default:
                         future[i][j] = 0;
                 }
+#endif
             }
         }
         std::swap(current, future);
