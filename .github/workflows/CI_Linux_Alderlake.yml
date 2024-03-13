@@ -1,6 +1,6 @@
 name: Benchmark on Linux + Alderlake
 
-on: [push]
+on: [tag]
 
 env:
   BUILD_TYPE: Release
