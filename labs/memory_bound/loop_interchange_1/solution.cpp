@@ -42,11 +42,12 @@ void multiply(Matrix &result, const Matrix &a, const Matrix &b) {
       }
     }
   }
-  // constexpr int blockSize = 16;
+  
+  // constexpr int blockSize = 64;
   // for (int i = 0; i < N; i+= blockSize) {
   //   for (int k = 0; k < N; k+= blockSize) {
   //     for (int j = 0; j < N; j+= blockSize) {
-  //       for(int inner_i = i; inner_i < j + blockSize; inner_i ++) {
+  //       for(int inner_i = i; inner_i < i + blockSize; inner_i ++) {
   //         for(int inner_k = k; inner_k < k + blockSize; inner_k ++) {
   //           for(int inner_j = j; inner_j < j + blockSize; inner_j++) {
   //             result[inner_i][inner_j] += a[inner_i][inner_k] * b[inner_k][inner_j];
